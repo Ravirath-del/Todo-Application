@@ -18,6 +18,7 @@ stages:
     displayName: Biome lint(JS lint)
     steps:
     - task: PowerShell@2
+      displayName: Biome chal gya paglu
       continueOnError: true
       inputs:
         targetType: 'inline'
@@ -33,17 +34,33 @@ stages:
   - job: Artifactbuild
     steps:
     - task: NodeTool@0
+      displayName: node tool install
       inputs:
         versionSource: 'spec'
         versionSpec: '18.x'
     - task: PowerShell@2
+      displayName: download dependencies
       inputs:
         targetType: 'inline'
         script: 'npm install'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: PowerShell@2
+      displayName: Build Artifact
       inputs:
         targetType: 'inline'
         script: 'npm run build'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'todo-build'
+        publishLocation: 'Container'
+        MaxArtifactSize: 0
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'todo-build'
+        downloadPath: '$(System.ArtifactsDirectory)/Artifact'
+
     
