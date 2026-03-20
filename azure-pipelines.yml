@@ -66,5 +66,21 @@ stages:
   jobs:
   - job: deployment
     steps:
-    
+    - task: CopyFilesOverSSH@0
+      inputs:
+        sshEndpoint: 'virtualmachine_connection'
+        sourceFolder: '$(System.DefaultWorkingDirectory)/Artifact'
+        contents: '**'
+        targetFolder: '/home/useradmin'
+        readyTimeout: '20000'
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'virtualmachine_connection'
+        runOptions: 'inline'
+        inline: |
+          sudo apt update
+          sudo install nginx -y
+          sudo rm -f /var/www/html
+          sudo cp-r /home/useradmin/* /var/www/html/
+        readyTimeout: '20000'
     
