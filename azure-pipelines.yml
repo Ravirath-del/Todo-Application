@@ -30,33 +30,33 @@ stages:
       inputs:
         targetType: 'inline'
         script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
-- stage: build
-  condition: false
-  jobs:
-  - job: Artifactbuild
-    steps:
-    - task: NodeTool@0
-      displayName: node tool install
-      inputs:
-        versionSource: 'spec'
-        versionSpec: '18.x'
-    - task: PowerShell@2
-      displayName: download dependencies
-      inputs:
-        targetType: 'inline'
-        script: 'npm install'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-    - task: PowerShell@2
-      displayName: Build Artifact
-      inputs:
-        targetType: 'inline'
-        script: 'npm run build'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(System.DefaultWorkingDirectory)/build'
-        artifact: 'todo-build'
-        publishLocation: 'pipeline'
+# - stage: build
+#   condition: false
+#   jobs:
+#   - job: Artifactbuild
+#     steps:
+#     - task: NodeTool@0
+#       displayName: node tool install
+#       inputs:
+#         versionSource: 'spec'
+#         versionSpec: '18.x'
+#     - task: PowerShell@2
+#       displayName: download dependencies
+#       inputs:
+#         targetType: 'inline'
+#         script: 'npm install'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)'
+#     - task: PowerShell@2
+#       displayName: Build Artifact
+#       inputs:
+#         targetType: 'inline'
+#         script: 'npm run build'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)'
+#     - task: PublishPipelineArtifact@1
+#       inputs:
+#         targetPath: '$(System.DefaultWorkingDirectory)/build'
+#         artifact: 'todo-build'
+#         publishLocation: 'pipeline'
 
 - stage: Deployment
   
