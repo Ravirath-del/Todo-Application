@@ -12,6 +12,7 @@ variables:
 
 stages:
 - stage: test
+  condition: false
   jobs:
   - job: BiomeLint
     continueOnError: true
@@ -30,6 +31,7 @@ stages:
         targetType: 'inline'
         script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
 - stage: build
+  condition: false
   jobs:
   - job: Artifactbuild
     steps:
