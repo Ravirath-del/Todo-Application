@@ -6,3 +6,15 @@ pr:
  branches:
    include:
      - develop
+pool: Application_agentpool
+
+stages:
+- stage: Build
+  jobs:
+  - job: BiomeLint
+    displayName: Biome lint(JS lint)
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
