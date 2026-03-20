@@ -55,12 +55,11 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'todo-build'
         publishLocation: 'pipeline'
-    - task: DownloadBuildArtifacts@1
+    - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
-        downloadType: 'single'
         artifactName: 'todo-build'
-        downloadPath: '$(System.DefaultWorkingDirectory)/Artifact'
+        targetPath: '$(System.DefaultWorkingDirectory)/Artifact'
 
 - stage: Deployment
   jobs:
