@@ -50,12 +50,11 @@ stages:
         targetType: 'inline'
         script: 'npm run build'
         workingDirectory: '$(System.DefaultWorkingDirectory)'
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'todo-build'
-        publishLocation: 'Container'
-        MaxArtifactSize: 0
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'todo-build'
+        publishLocation: 'pipeline'
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
