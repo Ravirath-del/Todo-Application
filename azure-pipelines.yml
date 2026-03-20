@@ -36,12 +36,13 @@ stages:
       inputs:
         versionSource: 'spec'
         versionSpec: '6.x'
-    - task: Npm@1
+    - task: PowerShell@2
       inputs:
-        command: 'install'
-        workingDir: '$(System.DefaultWorkingDirectory)'
-    - task: Npm@1
+        targetType: 'inline'
+        script: 'npm install'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: PowerShell@2
       inputs:
-        command: 'custom'
-        workingDir: '$(System.DefaultWorkingDirectory)'
-        customCommand: 'npm run build'
+        targetType: 'inline'
+        script: 'npm run build'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
