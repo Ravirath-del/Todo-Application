@@ -52,19 +52,20 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)'
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(System.DefaultWorkingDirectory)/build'
         artifact: 'todo-build'
         publishLocation: 'pipeline'
+
+- stage: Deployment
+  
+  jobs:
+  - job: deployment
+    steps:
     - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
         artifactName: 'todo-build'
         targetPath: '$(System.DefaultWorkingDirectory)/Artifact'
-
-- stage: Deployment
-  jobs:
-  - job: deployment
-    steps:
     - task: CopyFilesOverSSH@0
       inputs:
         sshEndpoint: 'virtualmachine_connection'
@@ -79,7 +80,7 @@ stages:
         inline: |
           sudo apt update
           sudo install nginx -y
-          sudo rm -f /var/www/html
-          sudo cp-r /home/useradmin/* /var/www/html/
+          sudo rm -f /var/www/html/*
+          sudo cp -r /home/useradmin/* /var/www/html/
         readyTimeout: '20000'
     
