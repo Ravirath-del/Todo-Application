@@ -19,4 +19,8 @@ stages:
       inputs:
         targetType: 'inline'
         script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
-  
+    - task: PowerShell@2
+      displayName: sonarqube SAST
+      inputs:
+        targetType: 'inline'
+        script: 'sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_a41486bbd55d8126b7ea78965962434063d30980 -Dsonar.projectKey=Todo_application'
