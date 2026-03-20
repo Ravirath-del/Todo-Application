@@ -14,7 +14,6 @@ stages:
 - stage: test
   jobs:
   - job: BiomeLint
-    continueOnError: true
     displayName: Biome lint(JS lint)
     steps:
     - task: PowerShell@2
