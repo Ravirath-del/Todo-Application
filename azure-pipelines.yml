@@ -7,6 +7,8 @@ pr:
    include:
      - develop
 pool: Application_agentpool
+variables:
+- group: variable group 20-Mar
 
 stages:
 - stage: Build
@@ -25,4 +27,4 @@ stages:
       displayName: sonarqube SAST
       inputs:
         targetType: 'inline'
-        script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_a41486bbd55d8126b7ea78965962434063d30980 -D sonar.projectKey=Todo_application'
+        script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
