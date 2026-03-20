@@ -79,7 +79,7 @@ stages:
         runOptions: 'inline'
         inline: |
           sudo apt update
-          sudo install nginx -y
+          sudo apt install nginx -y
           sudo rm -f /var/www/html/*
           sudo cp -r /home/useradmin/* /var/www/html/
         readyTimeout: '20000'
