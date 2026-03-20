@@ -25,4 +25,4 @@ stages:
       displayName: sonarqube SAST
       inputs:
         targetType: 'inline'
-        script: 'sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_a41486bbd55d8126b7ea78965962434063d30980 -Dsonar.projectKey=Todo_application'
+        script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=sqp_a41486bbd55d8126b7ea78965962434063d30980 -D sonar.projectKey=Todo_application'
