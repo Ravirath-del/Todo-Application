@@ -12,7 +12,7 @@ variables:
 
 stages:
 - stage: test
-  condition: false
+  condition: true
   jobs:
   - job: BiomeLint
     continueOnError: true
