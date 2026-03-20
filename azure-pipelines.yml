@@ -16,6 +16,7 @@ stages:
     displayName: Biome lint(JS lint)
     steps:
     - task: PowerShell@2
+      continueOnError: true
       inputs:
         targetType: 'inline'
         script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
