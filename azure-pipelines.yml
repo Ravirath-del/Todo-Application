@@ -60,6 +60,11 @@ stages:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'todo-build'
-        downloadPath: '$(System.ArtifactsDirectory)/Artifact'
+        downloadPath: '$(System.DefaultWorkingDirectory)/Artifact'
 
+- stage: Deployment
+  jobs:
+  - job: deployment
+    steps:
+    
     
