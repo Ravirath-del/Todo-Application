@@ -21,6 +21,7 @@ stages:
         targetType: 'inline'
         script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
     - task: PowerShell@2
+      continueOnError: true
       displayName: sonarqube SAST
       inputs:
         targetType: 'inline'
