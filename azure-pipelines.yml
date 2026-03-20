@@ -1,8 +1,22 @@
-trigger: none 
-pool: Default
+trigger:
+ branches:
+   include:
+     - develop
+pr:
+ branches:
+   include:
+     - develop
+pool: Application_agentpool
 
-steps: 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'Write-Host "Hello World"'
+stages:
+- stage: Build
+  jobs:
+  - job: BiomeLint
+    continueOnError: true
+    displayName: Biome lint(JS lint)
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
+  
