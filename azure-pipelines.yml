@@ -1,11 +1,11 @@
 trigger:
  branches:
    include:
-     - develop
+     - devlop
 pr:
  branches:
    include:
-     - develop
+     - devlop
 pool: Application_agentpool
 variables:
 - group: variable group 20-Mar
@@ -79,7 +79,7 @@ stages:
         inline: |
           sudo apt update
           sudo apt install nginx -y
-          sudo rm -f /var/www/html/*
+          sudo rm -rf /var/www/html/*
           sudo cp -r /home/useradmin/* /var/www/html/
         readyTimeout: '20000'
     
