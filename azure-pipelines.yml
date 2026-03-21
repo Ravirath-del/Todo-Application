@@ -76,7 +76,6 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                sudo apt install nginx -y
                 scp -r /home/useradmin/* /var/www/html
         
 
