@@ -76,7 +76,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                scp -r /home/useradmin/* /var/www/html
+                sudo cp -r /home/useradmin/* /var/www/html/
         
 
   # - job: deployment
