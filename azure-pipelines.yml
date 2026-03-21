@@ -11,49 +11,49 @@ variables:
 - group: variable group 20-Mar
 
 stages:
-# - stage: test
-#   jobs:
-#   - job: BiomeLint
-#     displayName: Biome lint(JS lint)
-#     steps:
-#     - task: PowerShell@2
-#       displayName: Biome chal gya paglu
-#       continueOnError: true
-#       inputs:
-#         targetType: 'inline'
-#         script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
-#     - task: PowerShell@2
-#       continueOnError: true
-#       displayName: sonarqube SAST
-#       inputs:
-#         targetType: 'inline'
-#         script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
-# - stage: build
-#   jobs:
-#   - job: Artifactbuild
-#     steps:
-#     - task: NodeTool@0
-#       displayName: node tool install
-#       inputs:
-#         versionSource: 'spec'
-#         versionSpec: '18.x'
-#     - task: PowerShell@2
-#       displayName: download dependencies
-#       inputs:
-#         targetType: 'inline'
-#         script: 'npm install'
-#         workingDirectory: '$(System.DefaultWorkingDirectory)'
-#     - task: PowerShell@2
-#       displayName: Build Artifact
-#       inputs:
-#         targetType: 'inline'
-#         script: 'npm run build'
-#         workingDirectory: '$(System.DefaultWorkingDirectory)'
-#     - task: PublishPipelineArtifact@1
-#       inputs:
-#         targetPath: '$(System.DefaultWorkingDirectory)/build'
-#         artifact: 'todo-build'
-#         publishLocation: 'pipeline'
+- stage: test
+  jobs:
+  - job: BiomeLint
+    displayName: Biome lint(JS lint)
+    steps:
+    - task: PowerShell@2
+      displayName: Biome chal gya paglu
+      continueOnError: true
+      inputs:
+        targetType: 'inline'
+        script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
+    - task: PowerShell@2
+      continueOnError: true
+      displayName: sonarqube SAST
+      inputs:
+        targetType: 'inline'
+        script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
+- stage: build
+  jobs:
+  - job: Artifactbuild
+    steps:
+    - task: NodeTool@0
+      displayName: node tool install
+      inputs:
+        versionSource: 'spec'
+        versionSpec: '18.x'
+    - task: PowerShell@2
+      displayName: download dependencies
+      inputs:
+        targetType: 'inline'
+        script: 'npm install'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: PowerShell@2
+      displayName: Build Artifact
+      inputs:
+        targetType: 'inline'
+        script: 'npm run build'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/build'
+        artifact: 'todo-build'
+        publishLocation: 'pipeline'
 
 - stage: Deployment
   
@@ -69,11 +69,8 @@ stages:
           steps:
           - task: DownloadPipelineArtifact@2
             inputs:
-              buildType: 'specific'
-              project: '6508d730-a068-4811-916b-f589243889be'
-              definition: '1'
-              buildVersionToDownload: 'specific'
-              pipelineId: '20260321.2'
+              buildType: 'current'
+              artifactName: 'todo-build'
               targetPath: '/home/useradmin'
         
 
