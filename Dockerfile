@@ -1,6 +1,6 @@
 FROM ubuntu AS build
 WORKDIR /todo
-COPY (System.DefaultWorkingDirectory) .
+COPY . .
 RUN apt update && apt install curl -y && curl -s https://deb.nodesource.com/setup_16.x | bash && sudo apt install nodejs -y
 RUN npm install && npm run build
 FROM nginx:alpine
