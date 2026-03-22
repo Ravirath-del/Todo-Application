@@ -20,7 +20,7 @@ stages:
         containerRegistry: 'Azurecr registry'
         repository: 'pagal'
         command: 'buildAndPush'
-        Dockerfile: '(System.DefaultWorkingDirectory)/Dockerfile'
+        Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
         tags: '$(azurecr.io/todo:v1)'
 # - stage: test
 #   jobs:
