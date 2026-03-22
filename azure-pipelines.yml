@@ -21,7 +21,10 @@ stages:
         repository: 'todoui'
         command: 'buildAndPush'
         Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
-        tags: '$(Build.BuildId)v1'
+        tags: 'v2'
+- stage:
+  jobs:
+  - job: 
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
