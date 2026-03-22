@@ -18,10 +18,10 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'Azurecr registry'
-        repository: 'pagal'
+        repository: 'todoui'
         command: 'buildAndPush'
         Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
-        tags: '$(azurecr.io/todo:v1)'
+        tags: '$(Build.BuildId)v1'
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
