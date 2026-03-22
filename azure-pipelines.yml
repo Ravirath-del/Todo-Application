@@ -1,8 +1,110 @@
-trigger: none 
-pool: Default
+trigger:
+ branches:
+   include:
+     - devlop
+pr:
+ branches:
+   include:
+     - devlop
+pool: Application_agentpool
+variables:
+- group: variable group 20-Mar
 
-steps: 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'Write-Host "Hello World"'
+stages:
+# - stage: test
+#   jobs:
+#   - job: BiomeLint
+#     displayName: Biome lint(JS lint)
+#     steps:
+#     - task: PowerShell@2
+#       displayName: Biome chal gya paglu
+#       continueOnError: true
+#       inputs:
+#         targetType: 'inline'
+#         script: 'C:\Tools\biome.exe lint $(System.DefaultWorkingDirectory)/src'
+#     - task: PowerShell@2
+#       continueOnError: true
+#       displayName: sonarqube SAST
+#       inputs:
+#         targetType: 'inline'
+#         script: 'sonar -D sonar.host.url=http://localhost:9000 -D sonar.token=$(sonar_token) -D sonar.projectKey=Todo_application'
+# - stage: build
+#   jobs:
+#   - job: Artifactbuild
+#     steps:
+#     - task: NodeTool@0
+#       displayName: node tool install
+#       inputs:
+#         versionSource: 'spec'
+#         versionSpec: '18.x'
+#     - task: PowerShell@2
+#       displayName: download dependencies
+#       inputs:
+#         targetType: 'inline'
+#         script: 'npm install'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)'
+#     - task: PowerShell@2
+#       displayName: Build Artifact
+#       inputs:
+#         targetType: 'inline'
+#         script: 'npm run build'
+#         workingDirectory: '$(System.DefaultWorkingDirectory)'
+#     - task: PublishPipelineArtifact@1
+#       inputs:
+#         targetPath: '$(System.DefaultWorkingDirectory)/build'
+#         artifact: 'todo-build'
+#         publishLocation: 'pipeline'
+
+- stage: Deployment
+  
+  jobs:
+  - deployment: 
+    environment:            # create environment and/or record deployments
+      name: vm-deployment          # name of the environment to run this job on.
+      resourceName: environment-vm # name of the resource in the environment to record the deployments against
+      resourceType: virtualMachine  # type of the resource you want to target. Supported types - virtualMachine, Kubernetes
+    strategy:               # deployment strategy
+      runOnce:              # default strategy
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'specific'
+              project: '6508d730-a068-4811-916b-f589243889be'
+              definition: '1'
+              buildVersionToDownload: 'specific'
+              pipelineId: '31'
+              artifactName: 'todo-build'
+              targetPath: '/home/useradmin'
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: 
+                sudo cp -r /home/useradmin/* /var/www/html/
+        
+
+  # - job: deployment
+  #   steps:
+    # - task: DownloadPipelineArtifact@2
+    #   inputs:
+    #     buildType: 'current'
+    #     artifactName: 'todo-build'
+    #     targetPath: '$(System.DefaultWorkingDirectory)/Artifact'
+    # - task: CopyFilesOverSSH@0
+    #   inputs:
+    #     sshEndpoint: 'virtualmachine_connection'
+    #     sourceFolder: '$(System.DefaultWorkingDirectory)/Artifact'
+    #     contents: '**'
+    #     targetFolder: '/home/useradmin'
+    #     readyTimeout: '20000'
+    # - task: SSH@0
+    #   inputs:
+    #     sshEndpoint: 'virtualmachine_connection'
+    #     runOptions: 'inline'
+    #     inline: |
+    #       sudo apt update
+    #       sudo apt install nginx -y
+    #       sudo rm -rf /var/www/html/*
+    #       sudo cp -r /home/useradmin/* /var/www/html/
+    #     readyTimeout: '20000'
+    
