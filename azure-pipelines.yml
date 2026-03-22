@@ -33,7 +33,8 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'kubernetes_connection'
         namespace: 'default'
-        manifests: '$(System.DefaultWorkingDirectory)/K8s'
+        manifests: $(System.DefaultWorkingDirectory)/K8s/deployment.yml
+                    $(System.DefaultWorkingDirectory)/k8s/svc.yml 
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
