@@ -24,7 +24,15 @@ stages:
         tags: 'v2'
 - stage:
   jobs:
-  - job: 
+  - job: k8sdeployment
+    steps:
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubernetes_connection'
+        namespace: 'default'
+        manifests: '$(System.DefaultWorkingDirectory)/K8s/'
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
