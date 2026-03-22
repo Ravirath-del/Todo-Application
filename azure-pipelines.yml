@@ -11,17 +11,18 @@ pool: Application_agentpool
 # - group: variable group 20-Mar
 
 stages:
-- stage: dockerbuild
-  jobs:
-  - job: dockerimage
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Azurecr registry'
-        repository: 'todoui'
-        command: 'buildAndPush'
-        Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
-        tags: 'v2'
+# - stage: dockerbuild
+#   jobs:
+#   - job: dockerimage
+#     steps:
+#     - task: Docker@2
+#       inputs:
+#         containerRegistry: 'Azurecr registry'
+#         repository: 'todoui'
+#         command: 'buildAndPush'
+#         Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
+#         tags: 'v2'
+
 - stage:
   jobs:
   - job: k8sdeployment
@@ -32,7 +33,7 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'kubernetes_connection'
         namespace: 'default'
-        manifests: '$(System.DefaultWorkingDirectory)/K8s/'
+        manifests: '$(System.DefaultWorkingDirectory)/K8s'
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
