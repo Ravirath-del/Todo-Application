@@ -7,10 +7,13 @@ pr:
    include:
      - devlop
 pool: Application_agentpool
-variables:
-- group: variable group 20-Mar
+# variables:
+# - group: variable group 20-Mar
 
 stages:
+- stage: dockerbuild
+  jobs:
+  - job: 
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
@@ -55,32 +58,32 @@ stages:
 #         artifact: 'todo-build'
 #         publishLocation: 'pipeline'
 
-- stage: Deployment
+# - stage: Deployment
   
-  jobs:
-  - deployment: 
-    environment:            # create environment and/or record deployments
-      name: vm-deployment          # name of the environment to run this job on.
-      resourceName: environment-vm # name of the resource in the environment to record the deployments against
-      resourceType: virtualMachine  # type of the resource you want to target. Supported types - virtualMachine, Kubernetes
-    strategy:               # deployment strategy
-      runOnce:              # default strategy
-        deploy:
-          steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              buildType: 'specific'
-              project: '6508d730-a068-4811-916b-f589243889be'
-              definition: '1'
-              buildVersionToDownload: 'specific'
-              pipelineId: '31'
-              artifactName: 'todo-build'
-              targetPath: '/home/useradmin'
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: 
-                sudo cp -r /home/useradmin/* /var/www/html/
+#   jobs:
+#   - deployment: 
+#     environment:            # create environment and/or record deployments
+#       name: vm-deployment          # name of the environment to run this job on.
+#       resourceName: environment-vm # name of the resource in the environment to record the deployments against
+#       resourceType: virtualMachine  # type of the resource you want to target. Supported types - virtualMachine, Kubernetes
+#     strategy:               # deployment strategy
+#       runOnce:              # default strategy
+#         deploy:
+#           steps:
+#           - task: DownloadPipelineArtifact@2
+#             inputs:
+#               buildType: 'specific'
+#               project: '6508d730-a068-4811-916b-f589243889be'
+#               definition: '1'
+#               buildVersionToDownload: 'specific'
+#               pipelineId: '31'
+#               artifactName: 'todo-build'
+#               targetPath: '/home/useradmin'
+#           - task: Bash@3
+#             inputs:
+#               targetType: 'inline'
+#               script: 
+#                 sudo cp -r /home/useradmin/* /var/www/html/
         
 
   # - job: deployment
