@@ -21,3 +21,17 @@ spec:
         image: pagal.azurecr.io/todoui:v2
         ports:
         - containerPort: 80
+  ---
+  apiVersion: v1
+kind: Service
+metadata: 
+  name: service
+spec:
+  type: LoadBalancer
+  selector:
+    app: todoui
+    
+  ports: 
+    - name: service-port
+      port: 3200
+      targetPort: 80
