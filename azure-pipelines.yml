@@ -37,7 +37,7 @@ stages:
         namespace: 'default'
         command: 'apply'
         useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/k8s/*'
+        configuration: '$(System.DefaultWorkingDirectory)/k8s/*.yml'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
 # - stage: test
