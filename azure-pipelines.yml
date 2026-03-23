@@ -40,9 +40,6 @@ stages:
         configuration: '$(System.DefaultWorkingDirectory)/k8s/*'
         secretType: 'dockerRegistry'
         containerRegistryType: 'Azure Container Registry'
-        azureSubscriptionEndpointForSecrets: 'Azure subscription 1 (77f3ee6c-f543-47ec-ad10-67a999f49859)'
-        azureContainerRegistry: 'pagal-dagpf2fea2aqamc4.azurecr.io'
-        forceUpdate: false
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
