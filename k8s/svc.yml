@@ -4,6 +4,8 @@ metadata:
   name: service
 spec:
   type: LoadBalancer
+  selector:
+    
   ports: 
     - name: service-port
       port: 3200
