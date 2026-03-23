@@ -33,7 +33,7 @@ stages:
         targetType: 'inline'
         script: |
           echo "==== FILE STRUCTURE ===="
-          ls -R $(System.DefaultWorkingDirectory)
+          ls -R $(System.DefaultWorkingDirectory)/k8s/*.yml
     - task: Kubernetes@1
       inputs:
         connectionType: 'Azure Resource Manager'
