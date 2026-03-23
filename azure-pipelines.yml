@@ -44,9 +44,11 @@ stages:
         namespace: 'default'
         command: 'apply'
         useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/k8s/*.yml'
-        secretType: 'dockerRegistry'
-        containerRegistryType: 'Azure Container Registry'
+        configuration: |
+          $(System.DefaultWorkingDirectory)/k8s/deployment.yml
+          $(System.DefaultWorkingDirectory)/k8s/svc.yml
+            secretType: 'dockerRegistry'
+            containerRegistryType: 'Azure Container Registry'
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
