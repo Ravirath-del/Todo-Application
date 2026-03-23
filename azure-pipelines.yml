@@ -28,12 +28,12 @@ stages:
   - job: k8sdeployment
     steps:
     - checkout: self
-    - task: Bash@3
+    - task: PowerShell@2
       inputs:
         targetType: 'inline'
         script: |
-          echo "==== FILE STRUCTURE ===="
-          ls -R $(System.DefaultWorkingDirectory)/k8s/*.yml
+          Write-Host "==== FILES ===="
+          dir $(System.DefaultWorkingDirectory) -Recurse
     - task: Kubernetes@1
       inputs:
         connectionType: 'Azure Resource Manager'
