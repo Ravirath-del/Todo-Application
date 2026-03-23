@@ -46,7 +46,6 @@ stages:
         useConfigurationFile: true
         configuration: |
           $(System.DefaultWorkingDirectory)/k8s/deployment.yml
-          $(System.DefaultWorkingDirectory)/k8s/svc.yml
 # - stage: test
 #   jobs:
 #   - job: BiomeLint
