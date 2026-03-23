@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: todoapp
-        image: pagal.azurecr.io/todoui:v3
+        image: pagal.azurecr.io/todoui:v4
         ports:
         - containerPort: 80
 ---
@@ -33,6 +33,6 @@ spec:
     
   ports: 
     - name: service-port
-      port: 3200
+      port: 3600
       targetPort: 80
 
