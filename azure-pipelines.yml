@@ -28,6 +28,12 @@ stages:
   - job: k8sdeployment
     steps:
     - checkout: self
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo "==== FILE STRUCTURE ===="
+          ls -R $(System.DefaultWorkingDirectory)
     - task: Kubernetes@1
       inputs:
         connectionType: 'Azure Resource Manager'
