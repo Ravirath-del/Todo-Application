@@ -21,7 +21,7 @@ stages:
         repository: 'todoui'
         command: 'buildAndPush'
         Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
-        tags: 'v3'
+        tags: 'v4'
         arguments: '--platform linux/amd64,linux/arm64'
 - stage:
   jobs:
