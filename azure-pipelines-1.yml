@@ -38,5 +38,4 @@ jobs:
       appType: 'webAppLinux'
       WebAppName: 'frontendtodo'
       packageForLinux: '$(System.DefaultWorkingDirectory)/build'
-      RuntimeStack: 'NODE|20-lts'
-      DeploymentTypeLinux: 'oneDeploy'
+      RuntimeStack:  'STATICSITE|1.0'
