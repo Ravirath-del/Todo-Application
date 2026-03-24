@@ -1,41 +1,35 @@
 trigger: none
 pool: Application_agentpool
+
 jobs:
-- job: addnodetool
-  displayName: node tool utha ke laa
+- job: build_and_deploy
   steps:
+
   - task: NodeTool@0
-    displayName: tool installing
     inputs:
-      versionSource: 'spec'
       versionSpec: '20.x'
+
   - task: PowerShell@2
-    displayName: installing dependencies
     inputs:
       targetType: 'inline'
       script: |
         npm install
         npm run build
-      workingDirectory: '$(System.DefaultWorkingDirectory)'
-  - task: PublishPipelineArtifact@1
+
+  - task: ArchiveFiles@2
     inputs:
-      targetPath: '$(System.DefaultWorkingDirectory)/build'
-      artifact: 'drop'
-      publishLocation: 'pipeline'
-  # - task: AzureRmWebAppDeployment@5
-  #   inputs:
-  #     ConnectionType: 'AzureRM'
-  #     azureSubscription: 'Azure subscription 1 (77f3ee6c-f543-47ec-ad10-67a999f49859)'
-  #     appType: 'webAppLinux'
-  #     WebAppName: 'frontendtodo'
-  #     packageForLinux: '$(System.DefaultWorkingDirectory)/build'
-  #     RuntimeStack: 'NODE|20-lts'
-  #     DeploymentTypeLinux: 'oneDeploy'
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/build.zip'
+      replaceExistingArchive: true
+
   - task: AzureRmWebAppDeployment@5
     inputs:
       ConnectionType: 'AzureRM'
-      azureSubscription: 'Azure subscription 1(1)(77f3ee6c-f543-47ec-ad10-67a999f49859)'
+      azureSubscription: 'Azure subscription 1 (77f3ee6c-f543-47ec-ad10-67a999f49859)'
       appType: 'webAppLinux'
       WebAppName: 'frontendtodo'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/build'
-      RuntimeStack:  'STATICSITE|1.0'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/build.zip'
+      RuntimeStack: 'NODE|20-lts'
+      DeploymentTypeLinux: 'oneDeploy'
