@@ -22,10 +22,19 @@ jobs:
       targetPath: '$(System.DefaultWorkingDirectory)/build'
       artifact: 'drop'
       publishLocation: 'pipeline'
+  # - task: AzureRmWebAppDeployment@5
+  #   inputs:
+  #     ConnectionType: 'AzureRM'
+  #     azureSubscription: 'Azure subscription 1 (77f3ee6c-f543-47ec-ad10-67a999f49859)'
+  #     appType: 'webAppLinux'
+  #     WebAppName: 'frontendtodo'
+  #     packageForLinux: '$(System.DefaultWorkingDirectory)/build'
+  #     RuntimeStack: 'NODE|20-lts'
+  #     DeploymentTypeLinux: 'oneDeploy'
   - task: AzureRmWebAppDeployment@5
     inputs:
       ConnectionType: 'AzureRM'
-      azureSubscription: 'Azure subscription 1 (77f3ee6c-f543-47ec-ad10-67a999f49859)'
+      azureSubscription: 'Azure subscription 1(1)(77f3ee6c-f543-47ec-ad10-67a999f49859)'
       appType: 'webAppLinux'
       WebAppName: 'frontendtodo'
       packageForLinux: '$(System.DefaultWorkingDirectory)/build'
